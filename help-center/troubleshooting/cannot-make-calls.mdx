@@ -1,0 +1,30 @@
+---
+title: Cannot Make Calls
+description: Fix call connection issues on Euphoria Telecom.
+---
+
+## Issue
+
+- Outgoing calls fail
+- Error: "Call failed to connect"
+
+## Causes
+
+- Incorrect SIP credentials
+- Network restrictions
+
+## Quick Fix
+
+<Steps>
+  <Step title="Check credentials">
+    ````
+    Ensure your extension and password in your softphone match those in your Euphoria dashboard.
+    ````
+  </Step>
+  <Step title="Test network access">
+    ````bash
+    ping sip.euphoria.co.za
+    ````
+    Ensure ports 5060 (UDP/TCP) are open on your network.
+  </Step>
+</Steps>

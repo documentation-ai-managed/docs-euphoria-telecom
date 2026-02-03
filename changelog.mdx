@@ -1,0 +1,141 @@
+---
+title: Changelog
+description: Stay updated with the latest releases, bug fixes, and enhancements to Euphoria Telecom's platform.
+---
+
+## Recent Releases
+
+Track all changes to Euphoria Telecom's VoIP platform, including new features for call centers, AI enhancements, performance improvements, and breaking changes. Review the updates below to understand what's new and how it impacts your setup.
+
+<Callout kind="info">
+  Always test updates in a staging environment before deploying to production. Check the [upgrade guide](#upgrade-instructions) for detailed steps.
+</Callout>
+
+<Update label="2024-10-15" description="v2.1.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added AI-powered call transcription with automatic note capture, summaries, and action items.
+- Introduced real-time call monitoring dashboard for training contact center agents.
+- Enhanced custom IVR menus with dynamic routing based on caller input.
+
+## Improvements
+
+- Optimized call analytics reporting for faster load times `<50ms`.
+- Improved mobile app integration for agent performance tracking.
+
+## Bug Fixes
+
+- Fixed intermittent audio dropouts during high-volume calls.
+- Resolved dashboard refresh issues on Safari browsers.
+
+</Update>
+
+<Update label="2024-09-20" description="v2.0.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Launched advanced call trend analytics with agent performance heatmaps.
+- Added customizable business hours, caller-ID, and voicemail transcription.
+
+## Breaking Changes
+
+- Updated API authentication to require JWT tokens instead of API keys. Migrate using the new `{auth_token}` format.
+- Removed legacy SIP trunking endpoints; use new `{sip_v2}` namespace.
+
+## Bug Fixes
+
+- Patched security vulnerability in webhook endpoints (CVE-2024-5678).
+- Fixed queue overflow handling for contact centers.
+
+</Update>
+
+<Update label="2024-08-10" description="v1.9.0" tags={["bugfix", "improvement"]}>
+
+## Improvements
+
+- Enhanced scalability for contact centers supporting `>1000` concurrent calls.
+- Better error logging for troubleshooting call routing issues.
+
+## Bug Fixes
+
+- Corrected voicemail delivery delays during peak hours.
+- Fixed integration with third-party CRMs for call data sync.
+
+</Update>
+
+## Upgrade Instructions
+
+Follow these steps to upgrade your Euphoria Telecom instance safely.
+
+<Steps>
+  <Step title="Backup Your Data" icon="database">
+
+    Create a full backup of your configuration and call logs.
+
+````bash
+# Example backup command
+pg_dump -U youruser euphoria_db > backup_$(date +%Y%m%d).sql
+````
+
+  </Step>
+  <Step title="Check Compatibility" icon="check-circle">
+
+    Review the breaking changes above, especially for v2.0.0.
+
+    <Callout kind="alert">
+      Update your API clients to use JWT tokens: `Authorization: Bearer {your_jwt_token}`.
+    </Callout>
+
+  </Step>
+  <Step title="Run the Update" icon="download">
+
+    Use the CLI tool or API to apply the latest version.
+
+    <CodeGroup tabs="CLI,Docker">
+````bash
+# CLI update
+euphoria-ctl update --version 2.1.0
+````
+
+````docker
+# Docker update
+docker pull euphoria/telecom:latest
+docker-compose up -d
+````
+    </CodeGroup>
+
+  </Step>
+  <Step title="Verify Deployment" icon="zap">
+
+    Test key features like call routing and AI transcription.
+
+    ```bash
+    curl -H "Authorization: Bearer YOUR_TOKEN" https://api.example.com/v2/status
+    ```
+
+  </Step>
+</Steps>
+
+## Next Steps
+
+<Columns cols={3}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Get started with core VoIP features.
+  </Card>
+  <Card title="Authentication" icon="shield" href="/authentication">
+    Secure your API access.
+  </Card>
+  <Card title="Contact Center Guide" icon="users" href="/guides/contact-center">
+    Advanced setup for agents.
+  </Card>
+</Columns>
+
+<Expandable title="Deprecated Features" default-open="false">
+
+The following features are scheduled for removal in v2.2.0:
+
+- Legacy API key authentication (use JWT).
+- Old dashboard UI (migrated to v2).
+
+</Expandable>
